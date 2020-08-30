@@ -1,0 +1,17 @@
+[
+  { 
+    "isbn": "9781593275846",
+    "name": "Eloquent JavaScript, Second Edition",
+    "author": 1
+  },
+  {
+    "isbn": "5261114516031",
+    "name": "12 Rules for Life",
+    "author": 2
+  },
+  {
+    "isbn": "515464816165203",
+    "name": "The Infinite Game",
+    "author": 3
+  }
+]

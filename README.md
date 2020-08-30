@@ -1,68 +1,23 @@
+# Hector Kichen Test App
+
+## About
+
+I decided to use the recommended environment as I thought it would be fun to learn how to use Express and I was already comfortable with React. To make the data persist after refreshes, I attached this to at PostgreSQL database. The database name is *hectorkitchen* and has password *test123*. There's no confidential information here so don't worry about keeping the password secure. I have made a number of similar apps in the past but didn't want to copy any of my previous content.
+
+## Installation
+
+Make sure you have npm and PostgreSQL installed.
+
+After cloning the repository enter `npm i` into the root directory of your terminal to install the necessary packages for this app. If any packages are missing still, install them by typing `npm i --save <package_name>`. Eg. `npm i --save express-generator`. You'll need React, Express, nodemon, bootstrap. After this, type `npm build` to build the app. 
+
+To run the app move to the express-static-serve\react-app\server folder and enter `npm start` in the terminal. The app will be running on [http://localhost:5000/]. 
+
+## Comments
+
+I kept all routing to a single url because I didn't think there was enough content to make navigating pages worthwhile. If you'd like me to edit this to incorporate a different view for /books or /author/{id} for example then I would be more than happy to do so.
+
+If I were to expand on this app, I would add in user profiles and authentication. Furthermore, I would incorporate unit and integration testing, first for the UI and later if any complex logic is added. Also, database configuration details would be in a separate file, removed from version control.
+
+I would be more than happy to accept feedback and consider any changes you suggest and make sure to email me any questions or bugs you encounter at [killian.dunne97@gmail.com](mailto:killian.dunne97@gmail.com). Thanks
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

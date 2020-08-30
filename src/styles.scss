@@ -1,0 +1,52 @@
+$main-orange: #ffa255; //
+$main-color: $main-orange;
+$near-black: #1a1a1a; 
+$text-font: #574D46;
+$dark-grey: #595959; //
+$light-grey: #999999; //
+$soft-white: #f2f2f2; //
+$accent-backup: #339999;
+$accent: #ffe255;
+
+#root, body {
+  font-size: 20px;
+  width: 100%;
+}
+
+* {
+  color: $text-font;
+}
+
+.hide {
+  display: none;
+}
+
+#root button.btn.btn-primary {
+  background-color: $main-color;
+  &:active, &:focus {
+    background-color: $main-color;
+    outline-color: $main-color;
+    border-color: $main-color;
+    box-shadow: 0 0 0 0.2rem $main-color;
+  }
+  border-color: $main-color;
+  color: $text-font;
+}
+
+input.form-control {
+  outline-color: $light-grey;
+  border: none;
+  border-bottom: solid $main-color 2px;
+  &:focus, &:active {
+    border-color: $main-color;
+    box-shadow:  0 0 0.2rem $main-color;
+  }
+}
+
+nav {
+  background-color: $accent;
+}
+
+.author-heading {
+  margin-left: -20px;
+}
