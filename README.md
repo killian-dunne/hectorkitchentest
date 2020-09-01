@@ -10,7 +10,7 @@ Make sure you have npm and PostgreSQL installed.
 
 After cloning the repository enter `npm i` into the root directory of your terminal to install the necessary packages for this app. If any packages are missing still, install them by typing `npm i --save <package_name>`. Eg. `npm i --save express-generator`. You'll need React, Express, nodemon, bootstrap. After this, type `npm build` to build the app.
 
-To run the app move to the express-static-serve\react-app\server folder and enter `npm start` in the terminal. The app will be running on [http://localhost:5000/].
+To run the app move to the express-static-serve\react-app\server folder and enter `npm start` in the terminal. The app will be running on http://localhost:5000/.
 
 ## Comments
 
