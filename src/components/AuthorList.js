@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-const authors = require('../authors.json')
+import { Link } from 'react-router-dom';
 
 class AuthorList extends Component {
   constructor(props) {
@@ -10,19 +10,20 @@ class AuthorList extends Component {
   }
 
   componentDidMount(){
-    this.setState({ authors })
+   
   }
 
   render() {
     return (
-      <div>
-        <h2 className="author-heading text-center mt-2">Authors</h2>
+      <>
+        <h2 className="text-center mt-2">Authors</h2>
+        <div className="d-flex justify-content-end add-container">
+          <Link className="btn btn-primary mr-2 float-right mb-2" to={`/author`}>Add Author</Link>
+        </div>
         <ul className="list-group list-group-flush">
-          {authors.map(author => 
-            (<li className="list-group-item">{author.firstName + " " + author.lastName}</li>)
-          )}
+          {this.state.authors.map(author => <li className="list-group-item pl-md-5">⮚ {author.firstName + " " + author.lastName}</li>)}
         </ul>
-      </div>
+      </>
     );
   }
 }
