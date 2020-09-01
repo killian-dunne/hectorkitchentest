@@ -27,14 +27,11 @@ const getBookByIsbn = (req, res) => {
 }
 
 const createBook = (req, res) => {
-  let { name, isbn, author_id, firstname, lastname } = req.body;
-  console.log(firstname)
-  console.log(lastname);
-  pool.query('SELECT id FROM author WHERE author.firstname = $1 AND author.lastname = $2', [firstname, lastname], (err, results) => {
+  let { name, isbn, author_id, firstName, lastName } = req.body;
+  pool.query('SELECT id FROM author WHERE author.first_name = $1 AND author.last_name = $2', [firstName, lastName], (err, results) => {
     if (err) {
       throw err;
     }
-    console.log(results);
     if (results.rows[0]) {
       author_id = results.rows[0].id;
       pool.query('INSERT INTO book (isbn, name, author_id) VALUES ($1, $2, $3)', [isbn, name, author_id], (err, results) => {
@@ -50,7 +47,7 @@ const createBook = (req, res) => {
 
 const updateBook = (req, res) => {
   const isbn = req.params.isbn.toString();
-  const { name, author_id } = request.body;
+  const { name, author_id } = req.body;
 
   pool.query( 
     'UPDATE book SET name = $1, author_id = $2 WHERE isbn = $3', 

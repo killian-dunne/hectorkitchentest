@@ -2,7 +2,6 @@ import React from "react";
 import "./styles.scss";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from "./components/Navbar";
-import ListView from "./components/ListView";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import BookList from "./components/BookList";
 import AuthorList from "./components/AuthorList";

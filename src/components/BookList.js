@@ -28,7 +28,7 @@ class BookList extends Component {
         <ul className="list-group list-group-flush">
           {this.state.books.map(book => (
             <Link to={`/book/${book.isbn}`} className="prevent-link-css">
-              <li className="list-group-item pl-md-5">⮚ {book.name}</li>
+              <li className="list-group-item">⮚ {book.name}</li>
             </Link>
           ))}
         </ul>

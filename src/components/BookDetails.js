@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import BookCard from './BookCard';
 import Axios from 'axios';
-import { Link, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 
 class BookDetails extends Component {
@@ -10,6 +10,7 @@ class BookDetails extends Component {
     this.state = {
       book: {},
       author: {},
+      authorList: [],
       newItem: true
     }
   }
@@ -30,23 +31,34 @@ class BookDetails extends Component {
             author_id: data.author_id
           }
           let author = {
-            fullName: data.firstname + " " + data.lastname
+            first_name: data.first_name,
+            last_name: data.last_name,
+            id: data.id
           }
           this.setState({ book, author })
         }
       });
     }
+    Axios.get('/api/authors').then(res => {
+      console.log(res.data);
+      this.setState({
+        authorList: res.data
+      })
+    })
   }
 
   handleParamChange = (param, e) => {
     e.persist();
     e.preventDefault();
-    if (param == "fullName") {
-      this.setState(prevState => {
-        let author = Object.assign({}, prevState.author);
-        author[param] = e.target.value;
-        return { author }
-      })
+    if (param == "author_id") {
+      Axios.get(`/api/author/${e.target.value}`).then(res => {
+        if (res.data) {
+          let author = res.data[0];
+          let book = this.state.book;
+          book.author_id = e.target.value;
+          this.setState({author, book})
+        }
+      });
     } else if (["isbn", "name"].includes(param)) {
       this.setState(prevState => {
         let book = Object.assign({}, prevState.book);
@@ -58,43 +70,63 @@ class BookDetails extends Component {
     }
   }
 
-  handleNewItem = (e) => {
+  submitBook = (e) => {
     e.persist();
     e.preventDefault();
-    let [firstname, lastname] = this.state.author.fullName.split(' ');
+    let [firstName, lastName] = [this.state.author.first_name, this.state.author.last_name];
     let data = {
       name: this.state.book.name,
       isbn: this.state.book.isbn,
       author_id: this.state.book.author_id,
-      firstname, 
-      lastname
+      firstName, 
+      lastName
     }
+    let method = this.state.newItem ? 'post' : 'put';
+    let url = this.state.newItem ? '/api/book' : '/api/book/' + data.isbn;
     Axios({
-      method: 'post', 
-      url: `/api/book`,
-      data
+      method, url, data
     });
+    window.location.pathname = '/books';
+  }
+
+  deleteBook = () => {
+    Axios({
+      method: 'delete',
+      url: `/api/book/${this.state.book.isbn}`
+    })
+    window.location.pathname = '/books';
   }
 
   render() {
-    let type = this.props.type;
-    let identifier = type == "book" ? ":isbn" : ":id";
     let updateButtons = (
       <>
         <button className="btn btn-primary mx-2" type="submit">Update</button>
-        <button className="btn btn-secondary mx-2">Delete</button>
+        <button className="btn btn-secondary mx-2" onClick={this.deleteBook}>Delete</button>
       </>);
-    let createButton = <button className="btn btn-primary mx-2" type="submit" onClick={this.handleNewItem}>Create</button>
+    let createButton = <button className="btn btn-primary mx-2" type="submit">Create</button>
     return (
       <Switch>
         <Route path={`/book/:isbn`}>
-          <BookCard book={this.state.book} author={this.state.author} buttons={updateButtons} newItem={false} handleParamChange={this.handleParamChange}/>
+          <BookCard 
+            book={this.state.book} 
+            author={this.state.author} 
+            buttons={updateButtons} 
+            newItem={false} 
+            handleParamChange={this.handleParamChange} 
+            submitBook={this.submitBook}
+            authorList={this.state.authorList} />
         </Route>
         <Route path={`/book`}>
-          <BookCard book={this.state.book} author={this.state.author} buttons={createButton} newItem={true} handleParamChange={this.handleParamChange}/>
+          <BookCard 
+            book={this.state.book} 
+            author={this.state.author} 
+            buttons={createButton} 
+            newItem={true} 
+            handleParamChange={this.handleParamChange} 
+            submitBook={this.submitBook}
+            authorList={this.state.authorList}/>
         </Route>
       </Switch>
-
     );
   }
 }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import BookCard from './BookCard';
 import Axios from 'axios';
-import { Link, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import AuthorCard from './AuthorCard';
 
 
@@ -12,7 +11,8 @@ class AuthorDetails extends Component {
       books: [],
       firstName: '',
       lastName: '',
-      newItem: true
+      newItem: true,
+      id: ''
     }
   }
 
@@ -25,11 +25,16 @@ class AuthorDetails extends Component {
       let ending = window.location.pathname.split('/')[2];
       Axios.get(`/api/author/${ending}`).then(res => {
         if (res.data) {
-          let data = res.data[0];
-          let firstName = data.firstname;
-          let lastName = data.lastname;
-          let books;
-          this.setState({ firstName,lastName })
+          Axios.get(`/api/author-books/${ending}`).then(res2 => {
+            if (res2.data) {
+              let books = res2.data;
+              console.log(books)
+              let firstName = res.data[0].first_name;
+              let lastName = res.data[0].last_name;
+              let id = res.data[0].id;
+              this.setState({ firstName,lastName, books, id })
+            }
+          })
         }
       });
     }
@@ -47,37 +52,48 @@ class AuthorDetails extends Component {
     }
   }
 
-  handleNewItem = (e) => {
+  submitAuthor = (e) => {
     e.persist();
     e.preventDefault();
     let data = {
-      firstname: this.state.firstName,
-      lastname: this.state.lastName
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      id: this.state.id
     }
+    let method = this.state.newItem ? 'post' : 'put';
+    let url = this.state.newItem ? '/api/author' : '/api/author/' + this.state.id;
     Axios({
-      method: 'post', 
-      url: `/api/authors`,
+      method,
+      url,
       data
     });
+    window.location.pathname = "/authors"; 
+  }
+
+  deleteAuthor = () => {
+    Axios({
+      method: 'delete', 
+      url: `/api/author/${this.state.id}`
+    })
+    window.location.pathname = "/authors";
   }
 
   render() {
     let updateButtons = (
       <>
         <button className="btn btn-primary mx-2" type="submit">Update</button>
-        <button className="btn btn-secondary mx-2">Delete</button>
+        <button className="btn btn-secondary mx-2" onClick={this.deleteAuthor}>Delete</button>
       </>);
-    let createButton = <button className="btn btn-primary mx-2" type="submit" onClick={this.handleNewItem}>Create</button>
+    let createButton = <button className="btn btn-primary mx-2" type="submit">Create</button>
     return (
       <Switch>
         <Route path={`/author/:id`}>
-          <AuthorCard firstName={this.state.firstName} lastName={this.state.lastName} buttons={updateButtons} newItem={false} handleParamChange={this.handleParamChange}/>
+          <AuthorCard firstName={this.state.firstName} lastName={this.state.lastName} books={this.state.books} buttons={updateButtons} newItem={false} handleParamChange={this.handleParamChange} submitAuthor={this.submitAuthor} />
         </Route>
         <Route path={`/author`}>
-          <AuthorCard firstName={this.state.firstName} lastName={this.state.lastName} buttons={createButton} newItem={true} handleParamChange={this.handleParamChange}/>
+          <AuthorCard firstName={this.state.firstName} lastName={this.state.lastName} books={[]} buttons={createButton} newItem={true} handleParamChange={this.handleParamChange} submitAuthor={this.submitAuthor} />
         </Route>
       </Switch>
-
     );
   }
 }
