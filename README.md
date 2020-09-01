@@ -2,7 +2,7 @@
 
 ## About
 
-I decided to use the recommended environment as I thought it would be fun to learn how to use Express and I was already comfortable with React. To make the data persist after refreshes, I attached this to at PostgreSQL database. The database name is *hectorkitchen* and has password *test123*. There's no confidential information here so don't worry about keeping the password secure. I have made a number of similar apps in the past but didn't want to copy any of my previous content.
+I decided to use the recommended environment as I thought it would be fun to learn how to use Express and I was already comfortable with React. To make the data persist after refreshes, I attached this to a PostgreSQL database. The database name is *hectorkitchen* and has password *test123*. There's no confidential information here so don't worry about keeping the password secure. I have made a number of similar apps in the past but didn't want to copy any of my previous content.
 
 ## Installation
 
